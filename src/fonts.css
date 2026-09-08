@@ -1,0 +1,20 @@
+/* Font variables and heading styles for a FAANG-professional look */
+:root{
+  --font-sans: Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-headings: Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
+/* Base */
+body{font-family:var(--font-sans);}
+
+/* Headings: slightly tighter, heavier weight for a professional feel */
+h1,h2,h3,h4,h5,h6{
+  font-family:var(--font-headings);
+  font-weight:600;
+  letter-spacing:-0.02em;
+  color:var(--ink);
+  margin:0 0 .6em 0;
+}
+
+/* Keep eyebrow/section kicker in Space Grotesk as designed */
+.eyebrow,.section-kicker{font-family:"Space Grotesk",sans-serif}
