@@ -1,7 +1,39 @@
-import React, { useState } from 'react'
-import { navigate } from '../router'
-const A='/assets/'
+import React from "react";
 
-function HeroVisual(){return <div className="brand-orbit reveal delay-1" aria-label="Data to intelligence visual"><div className="orbit-glow"></div><div className="orbit-ring ring-a"></div><div className="orbit-ring ring-b"></div><div className="orbit-ring ring-c"></div><div className="data-path"></div><div className="data-path path-b"></div><div className="brand-lockup"><div className="core-symbol"><span>D</span><span>A</span><span>T</span><span>A</span></div><div className="brand-label"><span className="pulse"></span>INTELLIGENCE LAYER</div><div className="brand-caption">CONNECT • UNDERSTAND • PREDICT • ACT</div></div><div className="data-node node-a"></div><div className="data-node node-b"></div><div className="data-node node-c"></div><div className="data-node node-d"></div><div className="float-card card-one"><span> CONNECT</span><b>Data foundations</b><small>Trusted • governed • scalable</small></div><div className="float-card card-two"><span> ACT</span><b>Business decisions</b><small>Faster • smarter • measurable</small></div><div className="visual-label label-data">DATA</div><div className="visual-label label-analytics">ANALYTICS</div><div className="visual-label label-ai">AI</div><div className="visual-label label-decisions">DECISIONS</div></div>}
+function HeroVisual() {
+  return (
+    <div
+      className="scattered-clear-visual reveal delay-1"
+      aria-label="Scattered information becoming clear information"
+    >
+      <div className="scattered-clear-stage">
+        <div className="info-card info-1"><i></i><b>Sales</b><span>••••••</span></div>
+        <div className="info-card info-2"><i></i><b>Customers</b><span>••••••</span></div>
+        <div className="info-card info-3"><i></i><b>Operations</b><span>••••••</span></div>
+        <div className="info-card info-4"><i></i><b>Reports</b><span>••••••</span></div>
+        <div className="info-card info-5"><i></i><b>Data</b><span>••••••</span></div>
+        <div className="info-card info-6"><i></i><b>More</b><span>••••••</span></div>
 
-export default HeroVisual
+        <div className="clear-core">
+          <span>SYNERTRIX</span>
+          <strong>Clear information</strong>
+        </div>
+
+        <div className="clear-lines">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div className="scattered-clear-caption">
+        <span>SCATTERED</span>
+        <i></i>
+        <span>CLEAR</span>
+      </div>
+    </div>
+  );
+}
+
+export default HeroVisual;

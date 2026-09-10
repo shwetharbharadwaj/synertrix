@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import SectionBadge from "../components/SectionBadge";
 
 const A = "/assets/";
@@ -18,7 +18,21 @@ const platforms = [
 ];
 
 function Platforms() {
-  const loop = [...platforms, ...platforms];
+  const trackRef = useRef(null);
+
+  const scrollLeft = () => {
+    trackRef.current?.scrollBy({
+      left: -320,
+      behavior: "smooth"
+    });
+  };
+
+  const scrollRight = () => {
+    trackRef.current?.scrollBy({
+      left: 320,
+      behavior: "smooth"
+    });
+  };
 
   return (
     <section className="platform-section" id="platforms">
@@ -36,24 +50,50 @@ function Platforms() {
 
         </div>
 
-        {/* LOGO MARQUEE */}
-        <div className="platform-marquee logo-marquee">
+        {/* PLATFORM CAROUSEL */}
+        <div className="platform-carousel reveal">
 
-          <div className="platform-track logo-track">
+          {/* LEFT BUTTON */}
+          <button
+            className="platform-carousel-btn platform-carousel-prev"
+            type="button"
+            onClick={scrollLeft}
+            aria-label="Previous platforms"
+          >
+            <span>←</span>
+          </button>
 
-            {loop.map(([name, file], index) => (
+
+          {/* LOGOS */}
+          <div
+            className="platform-carousel-track"
+            ref={trackRef}
+          >
+
+            {platforms.map(([name, file]) => (
               <div
                 className="platform-logo-item"
-                key={name + index}
+                key={name}
               >
                 <img
                   src={A + "Tech Logos/" + file}
-                  alt={index >= platforms.length ? "" : name}
+                  alt={name}
                 />
               </div>
             ))}
 
           </div>
+
+
+          {/* RIGHT BUTTON */}
+          <button
+            className="platform-carousel-btn platform-carousel-next"
+            type="button"
+            onClick={scrollRight}
+            aria-label="Next platforms"
+          >
+            <span>→</span>
+          </button>
 
         </div>
 
