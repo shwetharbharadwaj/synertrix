@@ -25,14 +25,11 @@ function Contact() {
       await fetch(GOOGLE_APPS_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
-        body: new URLSearchParams(formData),
+        body: new URLSearchParams([...formData.entries()]),
       });
-
-  
 
       setStatus("success");
       form.reset();
-
     } catch (error) {
       console.error("Contact form error:", error);
       setStatus("error");
@@ -43,14 +40,11 @@ function Contact() {
     <section className="contact-section" id="contact">
       <div className="container contact-wrap">
 
-        {/* CONTACT CONTENT */}
         <div className="contact-copy reveal">
-
           <SectionBadge label="START A CONVERSATION" />
 
           <h2>
-            Ready to make your{" "}
-            <em>data work harder?</em>
+            Ready to make your <em>data work harder?</em>
           </h2>
 
           <p>
@@ -61,20 +55,14 @@ function Contact() {
           <a href="mailto:contact@synertrix.com">
             contact@synertrix.com <span>↗</span>
           </a>
-
         </div>
 
-
-        
         <form
           className="contact-form reveal delay-1"
           onSubmit={handleSubmit}
         >
-
-          
           <label>
             Name
-
             <input
               type="text"
               name="name"
@@ -83,11 +71,8 @@ function Contact() {
             />
           </label>
 
-
- 
           <label>
             Work email
-
             <input
               type="email"
               name="email"
@@ -96,19 +81,16 @@ function Contact() {
             />
           </label>
 
-
           <label>
             Tell us about your requirement
-
             <textarea
               name="message"
               rows="4"
               required
-            ></textarea>
+            />
           </label>
 
-
-          
+          {/* Honeypot spam field */}
           <input
             type="text"
             name="website"
@@ -125,16 +107,12 @@ function Contact() {
             }}
           />
 
-
-        
           <input
             type="hidden"
             name="source"
             value="Synertrix Website"
           />
 
-
-          {/* SUBMIT */}
           <button
             type="submit"
             disabled={status === "sending"}
@@ -143,36 +121,26 @@ function Contact() {
               ? "Sending..."
               : "Start a conversation"}
 
-            {status !== "sending" && (
-              <span>↗</span>
-            )}
+            {status !== "sending" && <span>↗</span>}
           </button>
 
-
-         
           {status === "success" && (
             <p className="form-success">
               Thanks! Your enquiry has been received.
             </p>
           )}
 
-
-          
           {status === "error" && (
             <p className="form-error">
               Something went wrong. Please try again.
             </p>
           )}
 
-
-         
           {status === "not-configured" && (
             <p className="form-error">
-              The contact form is not configured yet.
-              Please try again later.
+              The contact form is not configured yet. Please try again later.
             </p>
           )}
-
         </form>
 
       </div>

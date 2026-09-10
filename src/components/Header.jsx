@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { navigate } from "../router";
 
 const A = `${import.meta.env.BASE_URL}assets/`;
+
 const nav = [
   ["About", "/about"],
   ["Services", "/services"],
@@ -14,19 +16,28 @@ function Header() {
 
   useEffect(() => {
     const close = () => setOpen(false);
+
     window.addEventListener("popstate", close);
-    return () => window.removeEventListener("popstate", close);
+
+    return () => {
+      window.removeEventListener("popstate", close);
+    };
   }, []);
 
   return (
     <header className="site-header" id="siteHeader">
       <div className="container nav-wrap">
-        {/* Use normal browser navigation for the logo so it ALWAYS returns to home. */}
+
+        {/* Logo / Home */}
         <a
           href="/"
           className="wordmark"
           aria-label="Synertrix home"
-          onClick={() => setOpen(false)}
+          onClick={(event) => {
+            event.preventDefault();
+            navigate("/");
+            setOpen(false);
+          }}
         >
           <img
             src={A + "Logos/LOGOS_MAIN-06.png"}
@@ -36,6 +47,7 @@ function Header() {
           />
         </a>
 
+        {/* Mobile menu button */}
         <button
           className={"menu-toggle" + (open ? " active" : "")}
           id="menuToggle"
@@ -49,6 +61,7 @@ function Header() {
           <span></span>
         </button>
 
+        {/* Navigation */}
         <nav
           className={"main-nav" + (open ? " open" : "")}
           id="mainNav"
@@ -58,16 +71,25 @@ function Header() {
             <a
               key={path}
               href={path}
-              onClick={() => setOpen(false)}
+              onClick={(event) => {
+                event.preventDefault();
+                navigate(path);
+                setOpen(false);
+              }}
             >
               {label}
             </a>
           ))}
 
+          {/* Contact */}
           <a
             href="/contact"
             className="nav-contact"
-            onClick={() => setOpen(false)}
+            onClick={(event) => {
+              event.preventDefault();
+              navigate("/contact");
+              setOpen(false);
+            }}
           >
             Talk to us <span>↗</span>
           </a>

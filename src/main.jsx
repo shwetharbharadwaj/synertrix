@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
-
 import "./fonts.css";
 import "./styles.css";
 
@@ -15,6 +14,8 @@ import ProcessPage from "./pages/ProcessPage";
 import IndustriesPage from "./pages/IndustriesPage";
 import PlatformsPage from "./pages/PlatformsPage";
 import ContactPage from "./pages/ContactPage";
+
+import { getCurrentPath } from "./router";
 
 
 /* =========================================
@@ -33,21 +34,6 @@ const routes = {
 
 
 /* =========================================
-   NORMALIZE PATH
-   ========================================= */
-
-function getPath() {
-  const path = window.location.pathname;
-
-  if (path.length > 1 && path.endsWith("/")) {
-    return path.slice(0, -1);
-  }
-
-  return path || "/";
-}
-
-
-/* =========================================
    LAYOUT
    ========================================= */
 
@@ -58,12 +44,10 @@ function Layout({ children }) {
      ----------------------------------------- */
 
   useEffect(() => {
-
     window.scrollTo({
       top: 0,
       behavior: "instant",
     });
-
   }, [children]);
 
 
@@ -83,12 +67,10 @@ function Layout({ children }) {
     function updateScrollUI() {
 
       if (header) {
-
         header.classList.toggle(
           "scrolled",
           window.scrollY > 20
         );
-
       }
 
 
@@ -105,9 +87,7 @@ function Layout({ children }) {
 
         progress.style.width =
           `${percentage}%`;
-
       }
-
     }
 
 
@@ -121,21 +101,17 @@ function Layout({ children }) {
 
 
     return () => {
-
       window.removeEventListener(
         "scroll",
         updateScrollUI
       );
-
     };
 
   }, [children]);
 
 
   /* -----------------------------------------
-     REVEAL ANIMATIONS
-     
-     This was missing from the React version.
+     Reveal animations
      ----------------------------------------- */
 
   useEffect(() => {
@@ -149,9 +125,6 @@ function Layout({ children }) {
     }
 
 
-    /* Fallback for browsers without
-       IntersectionObserver */
-
     if (!("IntersectionObserver" in window)) {
 
       elements.forEach((element) => {
@@ -159,7 +132,6 @@ function Layout({ children }) {
       });
 
       return;
-
     }
 
 
@@ -178,11 +150,8 @@ function Layout({ children }) {
               observer.unobserve(
                 entry.target
               );
-
             }
-
           });
-
         },
         {
           threshold: 0.08,
@@ -192,16 +161,12 @@ function Layout({ children }) {
 
 
     elements.forEach((element) => {
-
       observer.observe(element);
-
     });
 
 
     return () => {
-
       observer.disconnect();
-
     };
 
   }, [children]);
@@ -233,15 +198,13 @@ function Layout({ children }) {
 function App() {
 
   const [path, setPath] =
-    useState(getPath());
+    useState(getCurrentPath());
 
 
   useEffect(() => {
 
     function handleNavigation() {
-
-      setPath(getPath());
-
+      setPath(getCurrentPath());
     }
 
 
@@ -252,12 +215,10 @@ function App() {
 
 
     return () => {
-
       window.removeEventListener(
         "popstate",
         handleNavigation
       );
-
     };
 
   }, []);
@@ -281,7 +242,6 @@ function App() {
 
 const root =
   document.getElementById("root");
-
 
 createRoot(root).render(
   <App />
