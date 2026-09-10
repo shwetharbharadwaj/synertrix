@@ -1,8 +1,43 @@
 import React, { useState } from "react";
 import SectionBadge from "../components/SectionBadge";
 
+const GOOGLE_APPS_SCRIPT_URL =
+  import.meta.env.VITE_GOOGLE_APPS_SCRIPT_URL || "";
+
 function Contact() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState("idle");
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+
+    if (!GOOGLE_APPS_SCRIPT_URL) {
+      setStatus("not-configured");
+      return;
+    }
+
+    setStatus("sending");
+
+    const formData = new FormData(form);
+
+    try {
+      await fetch(GOOGLE_APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: new URLSearchParams(formData),
+      });
+
+  
+
+      setStatus("success");
+      form.reset();
+
+    } catch (error) {
+      console.error("Contact form error:", error);
+      setStatus("error");
+    }
+  }
 
   return (
     <section className="contact-section" id="contact">
@@ -29,35 +64,42 @@ function Contact() {
 
         </div>
 
-        {/* CONTACT FORM */}
+
+        
         <form
           className="contact-form reveal delay-1"
-          onSubmit={(event) => {
-            event.preventDefault();
-            setSent(true);
-          }}
+          onSubmit={handleSubmit}
         >
 
+          
           <label>
             Name
+
             <input
               type="text"
               name="name"
+              autoComplete="name"
               required
             />
           </label>
 
+
+ 
           <label>
             Work email
+
             <input
               type="email"
               name="email"
+              autoComplete="email"
               required
             />
           </label>
 
+
           <label>
             Tell us about your requirement
+
             <textarea
               name="message"
               rows="4"
@@ -65,9 +107,72 @@ function Contact() {
             ></textarea>
           </label>
 
-          <button type="submit">
-            Start a conversation <span>↗</span>
+
+          
+          <input
+            type="text"
+            name="website"
+            tabIndex="-1"
+            autoComplete="off"
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "-9999px",
+              width: "1px",
+              height: "1px",
+              opacity: 0,
+              pointerEvents: "none",
+            }}
+          />
+
+
+        
+          <input
+            type="hidden"
+            name="source"
+            value="Synertrix Website"
+          />
+
+
+          {/* SUBMIT */}
+          <button
+            type="submit"
+            disabled={status === "sending"}
+          >
+            {status === "sending"
+              ? "Sending..."
+              : "Start a conversation"}
+
+            {status !== "sending" && (
+              <span>↗</span>
+            )}
           </button>
+
+
+         
+          {status === "success" && (
+            <p className="form-success">
+              Thanks! Your enquiry has been received.
+            </p>
+          )}
+
+
+          
+          {status === "error" && (
+            <p className="form-error">
+              Something went wrong. Please try again.
+            </p>
+          )}
+
+
+         
+          {status === "not-configured" && (
+            <p className="form-error">
+              The contact form is not configured yet.
+              Please try again later.
+            </p>
+          )}
+
         </form>
 
       </div>
