@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import SectionBadge from "../components/SectionBadge";
 
-const A = "/assets/";
+const A = `${import.meta.env.BASE_URL}assets/`;
 
 const platforms = [
-  ["Google Cloud", "Google Cloud Logo.png"],
+  ["Google Cloud", "Google_Cloud_Logo.png"],
   ["Microsoft Azure", "Azure.png"],
   ["Oracle", "Oracle.png"],
   ["Salesforce", "salesforce-transparent.png"],
@@ -12,7 +12,7 @@ const platforms = [
   ["Databricks", "Databricks.png"],
   ["BigQuery", "BigQuery.png"],
   ["Power BI", "PowerBI.png"],
-  ["Looker", "Google Looker Studio.png"],
+  ["Looker", "Google_Looker_Studio.png"],
   ["Tableau", "Tableau.png"],
   ["Qlik", "QlikQ.png"]
 ];
